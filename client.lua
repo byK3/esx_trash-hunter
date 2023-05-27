@@ -52,24 +52,31 @@ function startThread()
 end
 
 function SearchTrash(trash, tcoords)
-    local ped = PlayerPedId()
-    local lib, anim = 'amb@prop_human_bum_bin@base', 'base'
-    local duration = Config.General.searchTime * 1000
+    if isSearching then 
+        local ped = PlayerPedId()
+        local lib, anim = 'amb@prop_human_bum_bin@base', 'base'
+        local duration = Config.General.searchTime * 1000
 
-    TaskPlayAnim(ped, lib, anim, 8.0, 8.0, duration, 1, 0, false, false, false)
-    Citizen.Wait(duration)
 
-    while IsEntityPlayingAnim(ped, lib, anim, 3) do
-        Wait(0)
-        FreezeEntityPosition(ped, true)
-        DisableAllControlActions(0)
+        ESX.Streaming.RequestAnimDict(lib, function()
+            TaskPlayAnim(ped, lib, anim, 8.0, -8.0, duration, 1, 0, false, false, false)
+
+            Wait(1)
+            while IsEntityPlayingAnim(ped, lib, anim, 3) do
+                Citizen.Wait(0)
+                DisableAllControlActions(0)
+                FreezeEntityPosition(ped, true)
+            end
+
+            ClearPedTasksImmediately(ped)
+            FreezeEntityPosition(ped, false)
+            isSearching = false
+            blocked[trash] = true
+            TriggerServerEvent('k3_trash:giveReward', trash, tcoords)
+        end)
+    else
+        return
     end
-
-    FreezeEntityPosition(ped, false)
-    ClearPedTasksImmediately(ped)
-    isSearching = false
-    blocked[trash] = true
-    TriggerServerEvent('k3_trash:giveReward', trash, tcoords)
 end
 
 CreateThread(function()
