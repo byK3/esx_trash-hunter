@@ -15,19 +15,17 @@ AddEventHandler('k3_trash:giveReward', function(obj, coords)
         return
     end
 
-    -- give rewards
     local reward = Config.General.rewards
     local randomType = math.random(1, 10)
 
     if randomType <= 5 then
         local randomMoney = math.random(reward.money.min, reward.money.max)
         xPlayer.addMoney(randomMoney)
-        Config.serverNotify(source, 'Du hast ' .. randomMoney .. ' $ gefunden')
-        print ('[k3_trash] Player ' .. GetPlayerName(source) .. ' found ' .. randomMoney .. ' $')
+        Config.serverNotify(source, 'You found ' .. randomMoney .. ' $')
     else
         local randomItem = math.random(1, #reward.items)
         local item = reward.items[randomItem]
         xPlayer.addInventoryItem(item.name, item.amount)
-        Config.serverNotify(source, 'Du hast ' .. item.amount .. 'x ' .. item.name .. ' gefunden')
+        Config.serverNotify(source, 'You found ' .. item.amount .. ' ' .. item.name)
     end
 end)
