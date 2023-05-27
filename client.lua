@@ -35,7 +35,7 @@ function startThread()
 
                 if not isSearching and dist <= Config.General.maxRange and not IsPedInAnyVehicle(ped, false) and not blocked[trash] then
                     trashFound = true
-                    ESX.ShowHelpNotification("Drücke ~INPUT_CONTEXT~ um den Müll zu durchsuchen")
+                    ESX.ShowHelpNotification("Press ~INPUT_CONTEXT~ to search the trash")
 
                     if IsControlJustPressed(0, 38) then
                         isSearching = true
@@ -83,4 +83,3 @@ CreateThread(function()
         end
     end
 end)
-
