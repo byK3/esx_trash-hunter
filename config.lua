@@ -2,7 +2,7 @@ Config = {}
 
 Config.General = {
 
-    props = {
+    props = { -- props that can be searched: add more props here if you want https://gtahash.ru
         "zprop_bin_01a_old",
         "prop_ld_case_01",
         "prop_bin_01a",
@@ -22,11 +22,11 @@ Config.General = {
         "prop_bin_14b",
     },
 
-    searchTime = 3, -- in seconds
-    refreshTime = 5, -- in minutes
-    maxRange = 2,
-    
-    rewards = {
+    searchTime = 3, -- how long it takes to search a bin
+    refreshTime = 5, -- how long it takes to refresh a bin after it has been searched (in minutes)
+    maxRange = 2,  -- how close you need to be to a bin to search it
+     
+    rewards = { -- rewards for searching bins (randomly selected) (can be items or money)
         money = {
             min = 1,
             max = 10,
@@ -46,7 +46,7 @@ Config.General = {
 
 
 
-Config.serverNotify = function (source,msg)
+Config.serverNotify = function (source,msg) 
     TriggerClientEvent('esx:showNotification', source, msg)
 end
 
