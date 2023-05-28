@@ -20,7 +20,7 @@ function startThread()
             props = {}
 
             for k, v in pairs(Config.General.props) do
-                local trash = GetClosestObjectOfType(coords, 1.0, GetHashKey(v), false, false, false)
+                local trash = GetClosestObjectOfType(coords["x"],coords["y"],coords["z"], 4.0, GetHashKey(v), false, false, false)
                 if DoesEntityExist(trash) then
                     table.insert(props, trash)
                 end
