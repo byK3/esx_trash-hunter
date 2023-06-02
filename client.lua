@@ -1,7 +1,6 @@
 local firstSpawn = true
 local isSearching = false
-local blocked = {}
-local props = {}
+local blocked = false
 
 AddEventHandler("playerSpawned", function()
     if firstSpawn then
@@ -71,7 +70,7 @@ function SearchTrash(trash, tcoords)
             ClearPedTasksImmediately(ped)
             FreezeEntityPosition(ped, false)
             isSearching = false
-            blocked[trash] = true
+            blocked = true
             TriggerServerEvent('k3_trash:giveReward', trash, tcoords)
         end)
     else
@@ -81,12 +80,7 @@ end
 
 CreateThread(function()
     while true do
-        Wait(Config.General.refreshTime * 1000 * 60)
-        
-        for k, v in pairs(blocked) do
-            if v then
-                blocked[k] = nil
-            end
-        end
+        Wait(Config.General.cooldown * 1000)
+        blocked = false
     end
 end)
