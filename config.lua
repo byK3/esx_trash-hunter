@@ -23,7 +23,7 @@ Config.General = {
     },
 
     searchTime = 3, -- how long it takes to search a bin
-    refreshTime = 5, -- how long it takes to refresh a bin after it has been searched (in minutes)
+    cooldown = 5, -- how long it takes to refresh a bin after it has been searched (in minutes)
     maxRange = 2,  -- how close you need to be to a bin to search it
      
     rewards = { -- rewards for searching bins (randomly selected) (can be items or money)
